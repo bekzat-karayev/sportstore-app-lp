@@ -9,11 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 the application and that are accessed through a DI.
     The AddControllersWithViews method sets up the shared objects required by applications
 using the MVC Framework and the Razor view engine.
+    The AddScoped method creates a service where each HTTP request gets its own repository object, which
+is the way that Entity Framework Core is typically used.
 */
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<StoreDbContext>(options => {
     options.UseSqlServer(builder.Configuration["ConnectionStrings:SportsStoreConnection"]);
 });
+builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
 
 var app = builder.Build();
 
