@@ -40,4 +40,6 @@ endpoints using a default convention for mapping requests to classes and methods
 */
 app.MapDefaultControllerRoute();
 
+SeedData.EnsurePopulated(app);
+
 app.Run();
