@@ -9,3 +9,6 @@ and also add new matches to the database.
 
 ## Build and run
 Information about building and running the app is provided inside the folders.
+
+### Notes
+Some useful information that I found while studying the book for this project: [notes](notes.txt)
