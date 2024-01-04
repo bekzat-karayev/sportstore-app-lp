@@ -1,1 +1,21 @@
 <h4>Welcome to SportsStore</h4>
+
+@*  Specifies the model type expected by this view.*@
+@model IQueryable<Product>
+
+@*  Code below iterates through each Product in the model data.
+    `Model` represents the data passed from the controller to the view.
+    There is a quirk in the way that Razor Views work that means the model data is always nullable, even
+when the type specified by the @model expression is not.
+    The ?? operator is the null-coalescing operator, which ensures that if Model is null, 
+it will use Enumerable.Empty<Product>() instead, preventing a null reference exception.
+*@
+@foreach (var p in Model ?? Enumerable.Empty<Product>()) 
+{
+    <div>
+        <h3>@p.Name</h3>
+        @p.Description
+        <!-- "c" parameter formats the numerical values as currence according to the culture settings of the server -->
+        <h4>@p.Price.ToString("c")</h4>
+    </div>
+}
