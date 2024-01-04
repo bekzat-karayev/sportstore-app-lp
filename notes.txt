@@ -1,4 +1,4 @@
-####### UNDERSTANDING IENUMERABLE<T> AND IQUERYABLE<T> INTERFACES #######
+###### UNDERSTANDING IENUMERABLE<T> AND IQUERYABLE<T> INTERFACES ######
 
 The IQueryable<T> interface is useful because it allows a collection of objects to be queried
 efficiently. Using the IQueryable<T> interface allows me to ask the database for just the objects
@@ -13,3 +13,13 @@ objects is enumerated, the query will be evaluated again, which means that a new
 the database. This can undermine the efficiency gains of using IQueryable<T>. In such situations, you
 can convert the IQueryable<T> interface to a more predictable form using the ToList or ToArray
 extension method.
+
+###### USING THE VISUAL STUDIO SCAFFOLDING ######
+
+Visual Studio supports scaffolding (automatic generation of basic code, files, or structures that provide a starting point 
+for a particular feature or functionality )to add items to a project.
+The code and markup that the scaffolding generates are so generic as to be all but useless, and the scenarios 
+that are supported are narrow and don’t address common development problems. If you want to make sure you know not only 
+how to create ASP.NET Core applications but also how everything works behind the scenes, then spend some time for initial
+preparation work to build foundation and set project files, folders and configurations according to appropriate 
+application design.
