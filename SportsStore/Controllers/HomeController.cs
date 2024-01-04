@@ -1,3 +1,4 @@
+using Azure;
 using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
 
@@ -24,12 +25,23 @@ namespace SportsStore.Controllers
     public class HomeController: Controller 
     {
         private IStoreRepository repository;
+        /*  Support for pagination is added, so that the view displays a smaller amount of products on a page
+        and so the user can move from page to page to view the overall catalog.  
+            The PageSize field specifies that I want four products per page.
+        */
+        public int PageSize = 4;
 
         public HomeController(IStoreRepository storeRepository)
         {
             repository = storeRepository;
         }
 
-        public IActionResult Index() => View(repository.Products);
+        public ViewResult Index(int productPage = 1)
+        {
+            return View(repository.Products
+                    .OrderBy(p => p.ProductID)
+                    .Skip((productPage - 1) * PageSize)
+                    .Take(PageSize));
+        }
     }
 }
