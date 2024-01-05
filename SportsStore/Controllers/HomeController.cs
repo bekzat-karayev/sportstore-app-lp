@@ -1,6 +1,6 @@
-using Azure;
 using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
+using SportsStore.Models.ViewModels;
 
 namespace SportsStore.Controllers 
 {
@@ -22,12 +22,13 @@ namespace SportsStore.Controllers
     doesn’t use Entity Framework Core, for example—and dependency injection means that the controller will
     continue to work without changes.
     */
-    public class HomeController: Controller 
+    public class HomeController : Controller 
     {
         private IStoreRepository repository;
         /*  Support for pagination is added, so that the view displays a smaller amount of products on a page
         and so the user can move from page to page to view the overall catalog.  
-            The PageSize field specifies that I want four products per page.
+            The PageSize field specifies that I want four products per page. Index action method now passes 
+        a ProductsListViewModel object as the model data to the view.
         */
         public int PageSize = 4;
 
@@ -38,10 +39,14 @@ namespace SportsStore.Controllers
 
         public ViewResult Index(int productPage = 1)
         {
-            return View(repository.Products
-                    .OrderBy(p => p.ProductID)
-                    .Skip((productPage - 1) * PageSize)
-                    .Take(PageSize));
+            return View(new ProductListViewModel() {
+                Products = repository.Products.OrderBy(p => p.ProductID).Skip((productPage - 1) * PageSize).Take(PageSize),
+                PagingInfo = new(){
+                    TotalItems = repository.Products.Count(),
+                    ItemsPerPage = PageSize,
+                    CurrentPage = productPage
+                }
+            });
         }
     }
 }
