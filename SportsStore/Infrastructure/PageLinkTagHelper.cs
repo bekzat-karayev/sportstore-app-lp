@@ -34,7 +34,7 @@ public class PageLinkTagHelper : TagHelper
             IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
             TagBuilder result = new TagBuilder("div");
 
-            for (int index = 1; index < PageModel.TotalPages; index++)
+            for (int index = 1; index <= PageModel.TotalPages; index++)
             {
                 TagBuilder tag = new TagBuilder("a");
                 tag.Attributes["href"] = urlHelper.Action( PageAction, new { productPage = index});
