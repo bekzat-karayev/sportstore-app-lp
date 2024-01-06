@@ -40,6 +40,8 @@ endpoints using a default convention for mapping requests to classes and methods
 */
 app.MapDefaultControllerRoute();
 
-SeedData.EnsurePopulated(app);
+/*  To perform initial migration and populate database with some sample data 
+*/
+// SeedData.EnsurePopulated(app);
 
 app.Run();
