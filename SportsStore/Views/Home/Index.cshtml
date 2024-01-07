@@ -1,5 +1,3 @@
-<h4>Welcome to SportsStore</h4>
-
 @*  Specifies the model type expected by this view.*@
 @model ProductListViewModel
 
@@ -12,11 +10,19 @@ it will use Enumerable.Empty<Product>() instead, preventing a null reference exc
 *@
 @foreach (var p in Model?.Products ?? Enumerable.Empty<Product>()) 
 {
-    <div>
-        <h3>@p.Name</h3>
-        @p.Description
-        <!-- "c" parameter formats the numerical values as currency according to the culture settings of the server -->
-        <h4>@p.Price.ToString("c")</h4>
+    <div class="card card-outline-primary m-1 p-1">
+        <div class="bg-faded p-1">
+            <h4>
+                @p.Name
+                <span class="badge rounded-pill bg-primary text-white" style="float:right">
+                    <!-- "c" parameter formats the numerical values as currency according to the culture settings of the server -->
+                    <small>@p.Price.ToString("c")</small>
+                </span>
+            </h4>
+        </div>
+        <div class="card-text p-1">
+            @p.Description
+        </div>
     </div>
 }
 
