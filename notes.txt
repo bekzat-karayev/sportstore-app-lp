@@ -38,3 +38,14 @@ provided by the ViewModel to display data and handle user interactions. This sep
 maintainable and testable code by keeping the UI logic separate from the business logic.
     For instance, in an ASP.NET MVC application, the View (HTML page) might display data from the ViewModel 
 (which retrieves data from the Model), and user interactions in the View might trigger actions defined in the ViewModel.
+
+###### PARTIAL VIEW VS _LAYOUT FILE ######
+
+    Partial views are reusable chunks of views that can be embedded within other views, allowing you to create modular and 
+reusable components within your application. They can have their own model and can be rendered within different views.
+    On the other hand, _Layout.cshtml serves as a master layout file for your application. It defines the common structure, 
+such as HTML structure, header, footer, navigation, and often includes common scripts and styles. It's used as a template that 
+other views (content views) will be placed into using the @RenderBody() method or similar mechanisms.
+    While both partial views and layout views are reusable components in ASP.NET Core, they serve different purposes. 
+Partial views are more focused on encapsulating and reusing specific sections of content within views, while the layout view 
+defines the overall structure and common elements for the entire application.
