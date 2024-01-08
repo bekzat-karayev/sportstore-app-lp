@@ -37,6 +37,9 @@ namespace SportsStore.Controllers
             repository = storeRepository;
         }
 
+        /*  When null is used for the `category` argument, all the Product objects that the controller gets
+        from the repository are returned, which is the same situation I had before adding the new `category` parameter.  
+        */
         public ViewResult Index(string? category, int productPage = 1)
         {
             return View(new ProductListViewModel() {

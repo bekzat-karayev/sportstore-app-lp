@@ -27,7 +27,7 @@ public class HomeControllerTests
         /*  It is a little awkward to get the data returned from the action method. The result is a ViewResult
         object, and I have to cast the value of its ViewData.Model property to the expected data type. 
         */
-        ProductListViewModel result = controller.Index().ViewData.Model as ProductListViewModel ?? new();
+        ProductListViewModel result = controller.Index(null).ViewData.Model as ProductListViewModel ?? new();
 
         // Assert
 
@@ -59,7 +59,7 @@ public class HomeControllerTests
 
         // Act
 
-        ProductListViewModel result = controller.Index(2)?.ViewData.Model as ProductListViewModel ?? new(); 
+        ProductListViewModel result = controller.Index(null, 2)?.ViewData.Model as ProductListViewModel ?? new(); 
 
         // Assert
 
@@ -89,7 +89,7 @@ public class HomeControllerTests
 
         // Act
 
-        ProductListViewModel result = controller.Index(2)?.ViewData.Model as ProductListViewModel ?? new();
+        ProductListViewModel result = controller.Index(null, 2)?.ViewData.Model as ProductListViewModel ?? new();
 
         // Assert
 
