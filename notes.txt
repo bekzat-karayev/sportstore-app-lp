@@ -49,3 +49,23 @@ other views (content views) will be placed into using the @RenderBody() method o
     While both partial views and layout views are reusable components in ASP.NET Core, they serve different purposes. 
 Partial views are more focused on encapsulating and reusing specific sections of content within views, while the layout view 
 defines the overall structure and common elements for the entire application.
+
+###### PARTIAL VIEW VS VIEW COMPONENT ######
+
+    In summary, Partial Views are simpler, reusable chunks of views embedded within other views, while View Components 
+offer more flexibility, encapsulation, and the ability to encapsulate logic, making them suitable for more complex and 
+independent UI components in ASP.NET Core applications.
+    Partial Views:
+        Purpose: Partial Views are reusable chunks of views or UI components that allow you to break down 
+            complex UIs into smaller, manageable parts. They are like sub-views that can be embedded within other views.
+        Usage: They are typically used within views and can have their own model or share the model of the parent view.
+        Rendered: Partial Views are rendered within another view using @Html.Partial() or @Html.RenderPartial() methods.
+        Scope: They are tightly coupled with the parent view and often share the same context (model, layout, etc.).
+    View Components:
+        Purpose: View Components are more versatile and powerful. They are similar to mini-controllers that render 
+            a chunk of HTML and can have logic.
+        Usage: View Components are more independent and can have their own models, business logic, and rendering logic. 
+            They can be used in multiple views and across the application.
+        Rendered: They are rendered within a view using the @Component.Invoke() or @Component.InvokeAsync() method.
+        Scope: View Components are more modular and encapsulated, making them ideal for more complex UI elements or 
+            components requiring independent logic.

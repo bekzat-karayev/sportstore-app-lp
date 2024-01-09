@@ -14,7 +14,9 @@
         </div>
         <div class="row m-1 p-1">
             <div id="categories" class="col-3">
-                Put something useful here later.
+                <!-- The element omits the ViewComponent part of the class name and hyphenates it, such that
+                vc:navigation-menu specifies the NavigationMenuViewComponent class. -->
+                <vc:navigation-menu />
             </div>
             <div class="col-9">
                 @RenderBody()
