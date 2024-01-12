@@ -69,3 +69,11 @@ independent UI components in ASP.NET Core applications.
         Rendered: They are rendered within a view using the @Component.Invoke() or @Component.InvokeAsync() method.
         Scope: View Components are more modular and encapsulated, making them ideal for more complex UI elements or 
             components requiring independent logic.
+
+###### VIEWBAG ######
+
+    ViewBag is a dynamic property that allows you to pass data from a controller to a view. It is part of the 
+ViewData dictionary, which is a key-value collection used to share data between controllers and views.
+    While ViewBag provides a convenient way to pass small amounts of data, it's worth noting that it lacks 
+the type safety and clarity of models (using strongly-typed views with models). In larger applications, using models is 
+often preferred for better maintainability and avoiding potential runtime errors.
