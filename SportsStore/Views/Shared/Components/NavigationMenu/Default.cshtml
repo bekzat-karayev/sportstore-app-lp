@@ -4,10 +4,13 @@
     <a class="btn btn-outline-secondary" asp-action="Index" asp-controller="Home" asp-route-category="">
         Home
     </a>
+    @*  I have used a Razor expression within the `class` attribute to apply the `btn-primary` class to the element
+    that represents the selected category and the `btn-secondary` class otherwise.*@
     @foreach (string category in Model ?? Enumerable.Empty<string>()) {
-        <a class="btn btn-outline-secondary" asp-action="Index" asp-controller="Home"
-            asp-route-category="@category" asp-route-productPage=1> 
-            @category
+        <a class="btn @(category == @ViewBag.SelectedCategory ? "btn-primary" : "btn-outline-secondary")"
+            asp-action="Index" asp-controller="Home"
+            asp-route-category="@category" asp-route-productPage="1"> 
+            @category @ViewBag.SelectedCategory
         </a>
     }
 </div>
