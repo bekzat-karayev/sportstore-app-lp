@@ -1,6 +1,6 @@
 namespace SportsStore.Models.ViewModels;
 
-public class ProductListViewModel
+public class ProductsListViewModel
 {
     public IEnumerable<Product> Products { get; set; } = Enumerable.Empty<Product>();
 
