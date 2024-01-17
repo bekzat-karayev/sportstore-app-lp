@@ -17,6 +17,12 @@ builder.Services.AddDbContext<StoreDbContext>(options => {
     options.UseSqlServer(builder.Configuration["ConnectionStrings:SportsStoreConnection"]);
 });
 builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
+/*  For variety, let's use Razor Pages application framework to implement shopping cart functionality.
+    While Razor Pages are part of the standard ASP.NET Core project template, explicitly calling the 
+`AddRazorPages` method sets up the services used by Razor Pages, and the `MapRazorPages` method
+registers Razor Pages as endpoints that the URL routing system can use to handle requests.
+*/
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -51,7 +57,7 @@ pipeline automatically, and the MapDefaultControllerRoute registers the MVC Fram
 endpoints using a default convention for mapping requests to classes and methods.
 */
 app.MapDefaultControllerRoute();
-
+app.MapRazorPages();
 /*  To perform initial migration and populate database with some sample data 
 */
 // SeedData.EnsurePopulated(app);
