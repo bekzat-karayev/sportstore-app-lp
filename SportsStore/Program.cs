@@ -23,6 +23,12 @@ builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
 registers Razor Pages as endpoints that the URL routing system can use to handle requests.
 */
 builder.Services.AddRazorPages();
+/*  The `AddDistributedMemoryCache` method call sets up the in-memory data store. 
+    The `AddSession` method registers the services used to access session data, and the `UseSession` method 
+allows the session system to automatically associate requests with sessions when they arrive from the client.
+*/
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -58,6 +64,7 @@ endpoints using a default convention for mapping requests to classes and methods
 */
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
+app.UseSession();
 /*  To perform initial migration and populate database with some sample data 
 */
 // SeedData.EnsurePopulated(app);
