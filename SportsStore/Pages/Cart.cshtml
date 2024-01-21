@@ -1,3 +1,39 @@
 @page
+@model CartModel
 
-<h4>This is Cart Page</h4>
+@*  The `Cart` Razor Page will receive the HTTP POST request that the browser sends when the user clicks an
+`Add To Cart` button. It will use the request form data to get the Product object from the database and use
+it to update the user’s cart, which will be stored as session data for use by future requests.
+    To unit test Razor Pages a separate class file is needed, in this case Cart.cshtml.cs
+*@
+<h2>Your cart</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Quantity</th>
+            <th>Item</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model?.Cart?.Lines ?? Enumerable.Empty<CartLine>()) {
+            <tr>
+                <td class="text-center">@line.Quantity</td>
+                <td class="text-left">@line.Product.Name</td>
+                <td class="text-right">@line.Product.Price.ToString("c")</td>
+                <td class="text-right">@((line.Quantity * line.Product.Price).ToString("c"))</td>
+            </tr>    
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">@Model?.Cart?.ComputeTotalValue().ToString("c")</td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="text-center">
+    <a class="btn brn-primary" href="@Model?.ReturnUrl">Continue shopping</a>
+</div>
