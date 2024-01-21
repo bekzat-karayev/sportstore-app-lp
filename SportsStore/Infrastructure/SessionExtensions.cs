@@ -8,15 +8,15 @@ which provides access to the session state data to serialize Cart objects into J
 */
 public static class SessionExtensions
 {
-    public static void SetJson(this ISession session, string key)
+    public static void SetJson(this ISession session, string key, object value)
     {
         session.SetString(key, JsonSerializer.Serialize(key));
     }
 
     public static T? GetJson<T>(this ISession session, string key)
     {
-        var sessionData = session.GetString(key);
+        string? sessionData = session.GetString(key) ?? string.Empty;
 
-        return session == null ? default(T) : JsonSerializer.Deserialize<T>(sessionData);
+        return session == null ? default : JsonSerializer.Deserialize<T>(sessionData);
     }
 }
