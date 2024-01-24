@@ -43,10 +43,11 @@ public class CartModel : PageModel
     public IActionResult OnPost(long productId, string returnUrl)
     {
         Product? product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
+        Console.WriteLine(product?.Name);
 
         if (product != null)
         {
-            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new();
+            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
             Cart.AddItem(product, 1);
             HttpContext.Session.SetJson("cart", Cart);
         }
