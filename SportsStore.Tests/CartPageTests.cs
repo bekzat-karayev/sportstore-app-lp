@@ -94,6 +94,5 @@ public class CartPageTests
         Assert.Single(testCart.Lines);
         Assert.Equal("P1", testCart.Lines.First().Product.Name);
         Assert.Equal(1, testCart.Lines.First().Quantity);
-        Assert.Equal(1, 1);
     }
 }
