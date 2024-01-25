@@ -17,6 +17,9 @@ an instance of the page model class, which can be subjected to tests.
 that is passed to the ISession interface mock and then deserializing it to ensure that it contains the
 expected content.
 */
+/*  Using services simplifies the testing process and makes it much easier to provide the class being tested
+with its dependencies.
+*/
 public class CartPageTests
 {
     [Fact]
@@ -42,13 +45,7 @@ public class CartPageTests
 
         // Act
 
-        CartModel cartModel = new(mockRepository.Object) {
-            PageContext = new(new ActionContext {
-                HttpContext = mockContext.Object,
-                RouteData = new(),
-                ActionDescriptor = new()
-            }) 
-        };
+        CartModel cartModel = new(mockRepository.Object, testCart);
         cartModel.OnGet("myUrl");
 
         // Assert
@@ -80,13 +77,7 @@ public class CartPageTests
 
         // Act
 
-        CartModel cartModel = new(mockRepository.Object) {
-            PageContext = new(new ActionContext {
-                HttpContext = mockContext.Object,
-                RouteData = new(),
-                ActionDescriptor = new()
-            })
-        };
+        CartModel cartModel = new(mockRepository.Object, testCart);
         cartModel.OnPost(1, "myUrl");
 
         // Assert
