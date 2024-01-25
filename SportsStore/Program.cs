@@ -29,6 +29,21 @@ allows the session system to automatically associate requests with sessions when
 */
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+/*  The `AddScoped` method specifies that the same object should be used to satisfy related requests for Cart instances. 
+How requests are related can be configured, but by default, it means that any Cart required by components handling the 
+same HTTP request will receive the same object.
+    Rather than provide the `AddScoped` method with a type mapping, as I did for the repository, I have specified 
+a lambda expression that will be invoked to satisfy Cart requests. The expression receives the collection of services 
+that have been registered and passes the collection to the GetCart method of the SessionCart class. The result is that 
+requests for the Cart service will be handled by creating SessionCart objects, which will serialize themselves 
+as session data when they are modified.
+    I also added a service using the `AddSingleton` method, which specifies that the same object should
+always be used. The service I created tells ASP.NET Core to use the HttpContextAccessor class when
+implementations of the IHttpContextAccessor interface are required. This service is required so I can
+access the current session in the SessionCart class.
+*/
+builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 

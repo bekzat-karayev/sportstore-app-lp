@@ -6,7 +6,7 @@ namespace SportsStore.Models;
 /*  The SessionCart class subclasses the Cart class and overrides the `AddItem`, `RemoveLine`, and `Clear` methods 
 so they call the base implementations and then store the updated state in the session using the extension methods 
 on the ISession interface. 
-    The static GetCart method is a factory for creating SessionCart objects and providing them with an ISession object 
+    The static `GetCart` method is a factory for creating SessionCart objects and providing them with an ISession object 
 so they can store themselves.
     Getting hold of the ISession object is a little complicated. I obtain an instance of the IHttpContextAccessor service, 
 which provides me with access to an HttpContext object that, in turn, provides me with the ISession. 

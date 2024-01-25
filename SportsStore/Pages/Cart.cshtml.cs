@@ -22,34 +22,34 @@ ProductSummary.cshtml view. This allows ASP.NET Core to associate incoming form 
 meaning I do not need to process the form directly. 
     This is known as model binding and is a powerful tool for simplifying development.
 */
+/*  Registering a Cart service in Program.cs allows to simplify the code where Cart objects are used.
+*/
 public class CartModel : PageModel
 {
     private IStoreRepository repository;
 
-    public CartModel(IStoreRepository storeRepository)
+    public CartModel(IStoreRepository storeRepository, Cart cartService)
     {
         repository = storeRepository;
+        Cart = cartService;
     }
 
-    public Cart? Cart { get; set; }
+    public Cart Cart { get; set; }
     public string ReturnUrl { get; set; } = "/";
 
     public void OnGet(string returnUrl)
     {
         ReturnUrl = returnUrl ?? "/";
-        Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new();
+        // Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new();
     }
 
     public IActionResult OnPost(long productId, string returnUrl)
     {
         Product? product = repository.Products.FirstOrDefault(p => p.ProductID == productId);
-        Console.WriteLine(product?.Name);
 
         if (product != null)
         {
-            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
             Cart.AddItem(product, 1);
-            HttpContext.Session.SetJson("cart", Cart);
         }
 
         return RedirectToPage(new { returnUrl = returnUrl});
