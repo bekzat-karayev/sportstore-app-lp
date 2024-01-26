@@ -55,6 +55,15 @@ public class CartModel : PageModel
         return RedirectToPage(new { returnUrl = returnUrl});
     }
 
+    /*  The new HTML content defines an HTML form. The handler method that will receive the request is specified with 
+    the asp-page-handler tag helper attribute, like this
+    ...
+    <form asp-page-handler="Remove" method="post">
+    ...
+        The specified name is prefixed with On and given a suffix that matches the request type so that a value
+    of Remove selects the OnPostRemove handler method. The handler method uses the value it receives to locate
+    the item in the cart and remove it.
+    */
     public IActionResult OnPostRemove(long productId, string returnUrl)
     {
         Cart.RemoveLine(Cart.Lines.First(cl => cl.Product.ProductID == productId).Product);
