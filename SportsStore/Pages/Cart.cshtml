@@ -14,6 +14,7 @@ it to update the user’s cart, which will be stored as session data for use by 
             <th>Item</th>
             <th class="text-right">Price</th>
             <th class="text-right">Subtotal</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,15 @@ it to update the user’s cart, which will be stored as session data for use by 
                 <td class="text-left">@line.Product.Name</td>
                 <td class="text-right">@line.Product.Price.ToString("c")</td>
                 <td class="text-right">@((line.Quantity * line.Product.Price).ToString("c"))</td>
+                <td class="test-center">
+                    <form asp-page-handler="Remove" method="post">
+                        <input type="hidden" name="ProductID" value="@line.Product.ProductID" />
+                        <input type="hidden" name="returnUrl" value="@Model?.ReturnUrl" />
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Remove
+                        </button>
+                    </form>
+                </td>
             </tr>    
         }
     </tbody>
