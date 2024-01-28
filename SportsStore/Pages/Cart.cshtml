@@ -24,7 +24,7 @@ it to update the user’s cart, which will be stored as session data for use by 
                 <td class="text-left">@line.Product.Name</td>
                 <td class="text-right">@line.Product.Price.ToString("c")</td>
                 <td class="text-right">@((line.Quantity * line.Product.Price).ToString("c"))</td>
-                <td class="test-center">
+                <td class="text-center">
                     <form asp-page-handler="Remove" method="post">
                         <input type="hidden" name="ProductID" value="@line.Product.ProductID" />
                         <input type="hidden" name="returnUrl" value="@Model?.ReturnUrl" />

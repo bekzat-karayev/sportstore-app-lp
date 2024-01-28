@@ -17,7 +17,7 @@ public class SessionCart : Cart
     public static Cart GetCart(IServiceProvider services)
     {
         ISession? session = services.GetRequiredService<IHttpContextAccessor>().HttpContext?.Session;
-        SessionCart cart = session?.GetJson<SessionCart>("cart") ?? new();
+        SessionCart cart = session?.GetJson<SessionCart>("Cart") ?? new();
         cart.Session = session;
 
         return cart;
