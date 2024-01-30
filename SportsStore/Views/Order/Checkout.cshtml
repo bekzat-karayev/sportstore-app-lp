@@ -3,6 +3,19 @@
 <h2>Check out now</h2>
 <p>Please enter your details, and we'll ship your goods right away!</p>
 
+@*  ASP.NET Core uses the validation attributes applied to the Order class to validate user data, but I need to make a simple 
+change to display any problems. This relies on another built-in tag helper that inspects the validation state of the data 
+provided by the user and adds warning messages for each problem that has been discovered.
+*@
+@*  The data submitted by the user is sent to the server before it is validated, which is known as server-side validation 
+and for which ASP.NET Core has excellent support. The problem with server-side validation is that the user isn’t told about 
+errors until after the data has been sent to the server and processed and the result page has been generated—something that 
+can take a few seconds on a busy server. 
+    For this reason, server-side validation is usually complemented by client-side validation, where JavaScript is used to check 
+the values that the user has entered before the form data is sent to the server.
+*@
+<div asp-validation-summary="All" class="text-danger"></div>
+
 @*  The asp-for attribute on the input elements is handled by a built-in tag helper that generates 
 the type, id, name, and value attributes based on the specified model property
 *@
