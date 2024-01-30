@@ -80,8 +80,7 @@ endpoints using a default convention for mapping requests to classes and methods
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
 app.UseSession();
-/*  To perform initial migration and populate database with some sample data 
-*/
-// SeedData.EnsurePopulated(app);
+
+SeedData.EnsurePopulated(app);
 
 app.Run();
