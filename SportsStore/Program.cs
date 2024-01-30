@@ -17,6 +17,7 @@ builder.Services.AddDbContext<StoreDbContext>(options => {
     options.UseSqlServer(builder.Configuration["ConnectionStrings:SportsStoreConnection"]);
 });
 builder.Services.AddScoped<IStoreRepository, EFStoreRepository>();
+builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
 /*  For variety, let's use Razor Pages application framework to implement shopping cart functionality.
     While Razor Pages are part of the standard ASP.NET Core project template, explicitly calling the 
 `AddRazorPages` method sets up the services used by Razor Pages, and the `MapRazorPages` method
@@ -81,6 +82,7 @@ app.MapDefaultControllerRoute();
 app.MapRazorPages();
 app.UseSession();
 
-SeedData.EnsurePopulated(app);
+// Comment out to speed up app building, since migrations are not needed now
+// SeedData.EnsurePopulated(app);
 
 app.Run();
