@@ -60,7 +60,7 @@ produced.
 will be created later in the chapter
 */
 app.UseStaticFiles();
-
+app.UseSession();
 /*  I can create URLs that are more appealing to user by creating a scheme that follows the pattern of composable
 URLs (e.g, "http://localhost/Products/Page2" instead of default "http://localhost/?productPage=2"). The ASP.NET Core routing 
 feature makes it easy to change the URL scheme in an application.

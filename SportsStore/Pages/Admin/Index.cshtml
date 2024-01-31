@@ -17,8 +17,8 @@ that connects to the server and renders the Blazor HTML content. Therefore, Inde
         are the confusingly named Blazor building blocks, and the component element applied in here is named Routed.
             The Razor Page also contains a script element that tells the browser to load the JavaScript file that 
         Blazor Server uses. Requests for this file are intercepted by the Blazor Server middleware, and you don’t need 
-        to explicitly add the JavaScript file to the project.>
-        <component type="typeof(Routed)" render-mode="Server" />
+        to explicitly add the JavaScript file to the project. -->
+        <component type="typeof(Pages.Admin.Routed)" render-mode="Server" />
         <script src="/_framework/blazor.server.js"></script>
     </body>
 </html>

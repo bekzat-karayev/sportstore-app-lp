@@ -6,23 +6,25 @@ which allows Blazor to respond to user interaction without losing the applicatio
 
 @inherits LayoutComponentBase
 
-<div class="bg-info text-whilr p-2">
+<div class="bg-info text-white p-2">
     <span class="navbar-brand ml-2">SPORTS STORE Administration</span>
 </div>
 <div class="container-fluid">
-    <div class="col-3">
-        <div class="d-gtid gap-1">
-            <NavLink class="btn btn-outline-primary" href="/admin/products" 
-                ActiveClass="btn-primary text-while" Match="NavLinkMatch.Prefix">
-                Products
-            </NavLink>
-            <NavLink class="btn btn-outline-primary" href="/admin/others" 
-                ActiveClass="btn-primary text-while" Match="NavLinkMatch.Prefix">
-                Orders
-            </NavLink>
+    <div class="row p-2">
+        <div class="col-3">
+            <div class="d-grid gap-1">
+                <NavLink class="btn btn-outline-primary" href="/admin/products" 
+                    ActiveClass="btn-primary text-white" Match="NavLinkMatch.Prefix">
+                    Products
+                </NavLink>
+                <NavLink class="btn btn-outline-primary" href="/admin/orders" 
+                    ActiveClass="btn-primary text-white" Match="NavLinkMatch.Prefix">
+                    Orders
+                </NavLink>
+            </div>
         </div>
-    </div>
-    <div class="col">
-        @Body
+        <div class="col">
+            @Body
+        </div>
     </div>
 </div>
