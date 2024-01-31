@@ -45,6 +45,10 @@ access the current session in the SessionCart class.
 */
 builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+/*  Blazor combines client-side JavaScript code with server-side code executed by ASP.NET Core, connected by a persistent HTTP
+connection.
+*/
+builder.Services.AddServerSideBlazor();
 
 var app = builder.Build();
 
@@ -80,7 +84,12 @@ endpoints using a default convention for mapping requests to classes and methods
 */
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
-app.UseSession();
+/*  The `AddServerSideBlazor` method creates the services that Blazor uses, and the `MapBlazorHub` method
+registers the Blazor middleware components. The final addition is to finesse the routing system to ensure
+that Blazor works seamlessly with the rest of the application.
+*/
+app.MapBlazorHub();
+app.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
 
 // Comment out to speed up app building, since migrations are not needed now
 // SeedData.EnsurePopulated(app);
