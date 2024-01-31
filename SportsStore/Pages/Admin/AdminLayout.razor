@@ -1,0 +1,28 @@
+@*  Blazor uses Razor syntax to generate HTML but introduces its own directives and features. 
+    This layout renders a two-column display with Product and Order navigation buttons, which are created using NavLink
+elements. These elements apply a built-in Razor Component that changes the URL without triggering a new HTTP request, 
+which allows Blazor to respond to user interaction without losing the application state.
+*@
+
+@inherits LayoutComponentBase
+
+<div class="bg-info text-whilr p-2">
+    <span class="navbar-brand ml-2">SPORTS STORE Administration</span>
+</div>
+<div class="container-fluid">
+    <div class="col-3">
+        <div class="d-gtid gap-1">
+            <NavLink class="btn btn-outline-primary" href="/admin/products" 
+                ActiveClass="btn-primary text-while" Match="NavLinkMatch.Prefix">
+                Products
+            </NavLink>
+            <NavLink class="btn btn-outline-primary" href="/admin/others" 
+                ActiveClass="btn-primary text-while" Match="NavLinkMatch.Prefix">
+                Orders
+            </NavLink>
+        </div>
+    </div>
+    <div class="col">
+        @Body
+    </div>
+</div>
