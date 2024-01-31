@@ -1,0 +1,23 @@
+@*  Blazor relies on a Razor Page to provide the initial content to the browser, which includes the JavaScript code
+that connects to the server and renders the Blazor HTML content. Therefore, Index.cshtml is created.
+*@
+@page "/admin"
+@{ Layout = null; }
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SportsStore Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <base href="/" />
+    </head>
+    <body>
+        <!-- The component element is used to insert a Razor Component in the output from the Razor Page. Razor Components 
+        are the confusingly named Blazor building blocks, and the component element applied in here is named Routed.
+            The Razor Page also contains a script element that tells the browser to load the JavaScript file that 
+        Blazor Server uses. Requests for this file are intercepted by the Blazor Server middleware, and you don’t need 
+        to explicitly add the JavaScript file to the project.>
+        <component type="typeof(Routed)" render-mode="Server" />
+        <script src="/_framework/blazor.server.js"></script>
+    </body>
+</html>
