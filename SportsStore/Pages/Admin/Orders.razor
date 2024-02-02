@@ -1,3 +1,59 @@
-@page "/admin/orders"
+@*  Blazor Components are not like the other application framework building blocks used for the userfacing sections of the 
+SportsStore application. Instead of dealing with individual requests, components can be long-lived and deal with multiple user 
+interactions over a longer period. This requires a different style of development, especially when it comes to dealing with 
+data using Entity Framework Core. 
+    The @inherits expression ensures that this component gets its own repository object, which ensures its operations are
+separate from those performed by other components displayed to the same user. And to avoid repeatedly querying the database — 
+which can be a serious problem in Blazor, the repository is used only when the component is initialized, when Blazor invokes 
+the `OnInitializedAsync` method, or when the user clicks a `Refresh Data` button.
+*@
 
-<h4>This is the orders component</h4>
+@page "/admin/orders"
+@inherits OwningComponentBase<IOrderRepository>
+
+@*  To display its data to the user, the OrderTable component is used, which is applied as an HTML element, like below.
+    The values assigned to the OrderTable element’s attributes are used to set the properties decorated with the Parameter 
+attribute in the OrderTable component. In this way, a single component can be configured to present two
+different sets of data without the need to duplicate code and content.
+*@
+<OrderTable TableTitle="Unshipped Orders" Orders="UnshippedOrders" ButtonLabel="Ship" OrderSelected="ShipOrder" />
+<OrderTable TableTitle="Shipped Orders" Orders="ShippedOrders" ButtonLabel="Reset" OrderSelected="ResetOrder" />
+<button class="btn btn-info" @onclick="@(e => UpdateData())">Refresh Data</button>
+
+@code {
+    public IOrderRepository Repository => Service;
+
+    public IEnumerable<Order> AllOrders { get; set; } = Enumerable.Empty<Order>();
+    public IEnumerable<Order> UnshippedOrders { get; set; } = Enumerable.Empty<Order>();
+    public IEnumerable<Order> ShippedOrders { get; set; } = Enumerable.Empty<Order>();
+
+    protected async override Task OnInitializedAsync() 
+    {
+        await UpdateData();
+    }
+
+    public async Task UpdateData() 
+    {
+        AllOrders = await Repository.Orders.ToListAsync();
+        UnshippedOrders = AllOrders.Where(o => !o.IsShipped);
+        ShippedOrders = AllOrders.Where(o => o.IsShipped);
+    }
+
+    /*  `The ShipOrder` and `ResetOrder` methods are used as the values for the OrderSelected attributes, which means they are 
+    invoked when the user clicks one of the buttons presented by the OrderTable component, updating the data 
+    in the database through the repository.
+    */
+    public void ShipOrder(int id) => UpdateOrder(id, true);
+    public void ResetOrder(int id) => UpdateOrder(id, false);
+
+    private void UpdateOrder(int id, bool shipValue) 
+    {
+        Order? order = Repository.Orders.FirstOrDefault(o => o.OrderID == id);
+
+        if (order != null)
+        {
+            order.IsShipped = shipValue;
+            Repository.SaveOrder(order);
+        }
+    }
+}

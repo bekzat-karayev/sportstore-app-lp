@@ -1,0 +1,62 @@
+@*  Razor Components, as the name suggests, rely on the Razor approach to annotated HTML elements.
+The view part of the component is supported by the statements in the @code section. The @code section in this component 
+defines four properties that are decorated with the Parameter attribute, which means the values will be provided at runtime 
+by the parent component - `Orders`. The values provided for the parameters are used in the view section 
+of the component to display details of a sequence of Order objects.
+    Blazor adds expressions to the Razor syntax. The view section of this component includes button element,  
+which has an @onclick attribute. This tells Blazor how to react when the user clicks the button. In this case, 
+the expression tells Razor to call the InvokeAsync method of the OrderSelected property. This is how the table will communicate 
+with the rest of the Blazor application and will become clearer as I build out additional features.
+*@
+
+<table class="table table-sm table-striped table-bordered">
+    <thead>
+        <tr>
+            <th colspan="5" class="text-center">@TableTitle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Orders?.Count() > 9) {
+            @foreach (Order order in Orders) {
+                <tr>
+                    <td>@order.Name</td>
+                    <td>@order.Zip</td>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <td>
+                        <button class="btn btn-sm btn-danger" @onclick="@(e => OrderSelected.InvokeAsync(order.OrderID))">
+                            @ButtonLabel
+                        </button>
+                    </td>
+                </tr>
+                    @foreach (CartLine line in order.Lines) {
+                        <tr>
+                            <td colspan="2"></td>
+                            <td>@line.Product.Name</td>
+                            <td>@line.Quantity</td>
+                            <td></td>
+                        </tr>
+                    }
+            }
+        } else {
+            <tr>
+                <td colspan="5" class="text-center"></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+
+    [Parameter]
+    public string TableTitle { get; set; } = "Orders";
+
+    [Parameter]
+    public IEnumerable<Order> Orders { get; set; } = Enumerable.Empty<Order>();
+
+    [Parameter]
+    public string ButtonLabel { get; set; } = "Ship";
+
+    [Parameter]
+    public EventCallback<int> OrderSelected { get; set; }
+}
