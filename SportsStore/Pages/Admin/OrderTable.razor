@@ -16,7 +16,7 @@ with the rest of the Blazor application and will become clearer as I build out a
         </tr>
     </thead>
     <tbody>
-        @if (Orders?.Count() > 9) {
+        @if (Orders?.Count() > 0) {
             @foreach (Order order in Orders) {
                 <tr>
                     <td>@order.Name</td>
