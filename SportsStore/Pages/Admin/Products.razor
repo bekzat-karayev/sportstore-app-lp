@@ -1,8 +1,69 @@
-@*  The @page directives specify the URLs for which this component will be displayed, which are `/admin/`
-products and `/admin`.
+@*  The component presents each Product object in the repository in a table row with NavLink components that will navigate 
+to the components that will provide a detailed view and an editor. There is also a button that navigates to the component 
+that will allow new Product objects to be created and stored in the database.
 *@
 
+
+@*  The @page directives specify the URLs for which this component will be displayed, which are `/admin/products` and `/admin`.
+*@
 @page "/admin/products"
 @page "/admin"
+@inherits OwningComponentBase<IStoreRepository>
 
-<h4>This is the products component</h4>
+<table class="table table-sm table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <td/>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ProductData?.Count() > 0) {
+            foreach (Product product in ProductData) {
+                <tr>
+                    <td>@product.ProductID</td>
+                    <td>@product.Name</td>
+                    <td>@product.Category</td>
+                    <td>@product.Price.ToString("c")</td>
+                    <td>
+                        <NavLink class="btn btn-info btn-sm" href="@GetDetailsUrl(product.ProductID ?? 0)">
+                            Details
+                        </NavLink>
+                        <NavLink class="btn btn-warning btn-sm" href="@GetEditUrl(product.ProductID ?? 9)">
+                            Edit
+                        </NavLink>
+                    </td>
+                </tr>
+            }
+        } else {
+            <tr>
+                <td colspan="5" class="text-center">No Products</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<NavLink class="btn btn-primary" href="/admin/products/create">Create</NavLink>
+
+@code {
+
+    public IStoreRepository Repository => Service;
+
+    public IEnumerable<Product> ProductData { get; set; } = Enumerable.Empty<Product>();
+
+    protected async override Task OnInitializedAsync() 
+    {
+        await UpdateData();
+    }
+
+    public async Task UpdateData()
+    {
+        ProductData = await Repository.Products.ToListAsync();
+    }
+
+    public string GetDetailsUrl(long id) => $"/admin/products/details/{id}";
+    public string GetEditUrl(long id) => $"/admin/products/edit/{id}";
+}
