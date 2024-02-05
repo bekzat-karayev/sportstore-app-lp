@@ -1,0 +1,92 @@
+@page "/admin/products/edit/{id:long}"
+@page "/admin/products/create"
+@inherits OwningComponentBase<IStoreRepository>
+
+<style>
+    div.validation-message { color: rgb(220, 53, 69); font-weight: 500; }
+</style>
+
+@*  Blazor provides a set of built-in Razor Components that are used to display and validate forms, which is important 
+because the browser can’t submit data using a POST request in a Blazor Component. 
+    The `EditForm` component is used to render a Blazor-friendly form, and the `InputText` and `InputNumber` components render 
+input elements that accept string and number values and that automatically update a model property when the user makes a change.
+    Data validation is integrated into these built-in components, and the OnValidSubmit attribute on the `EditForm` component 
+is used to specify a method that is invoked only if the data entered into the form conforms to the rules defined 
+by the validation attributes.
+*@
+<h3 class="bg-@ThemeColor text-white text-center p-1">@TitleText a Product</h3>
+<EditForm Model="Product" OnValidSubmit="SaveProduct">
+    <DataAnnotationsValidator />
+    @if(Product.ProductID != 0) {
+        <div class="form-group">
+            <label>ID</label>
+            <input class="form-control" disabled value="@Product.ProductID" />
+        </div>
+    }
+    <div class="form-group">
+        <label>Name</label>
+        <ValidationMessage For="@(() => Product.Name)" />
+        <InputText class="form-control" @bind-value="Product.Name" />
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <ValidationMessage For="@(() => Product.Description)" />
+        <InputText class="form-control" @bind-value="Product.Description" />
+    </div>
+    <div class="form-group">
+        <label>Category</label>
+        <ValidationMessage For="@(() => Product.Category)" />
+        <InputText class="form-control" @bind-value="Product.Category" />
+    </div>
+    <div class="form-group">
+        <label>Price</label>
+        <ValidationMessage For="@(() => Product.Price)" />
+        <InputNumber class="form-control" @bind-value="Product.Price" />
+    </div>
+    <div class="m-2">
+        <button type="submit" class="btn btn-@ThemeColor">Save</button>
+        <NavLink class="btn btn-secondary" href="/admin/products">Cancel</NavLink>
+    </div>
+</EditForm>
+
+@*  Blazor also provides the NavigationManager class, which is used to programmatically navigate between components without 
+triggering a new HTTP request. The `Editor` component uses NavigationManager, which is obtained as a service, 
+to return to the `Products` component after the database has been updated.
+*@
+@code {
+
+    public IStoreRepository Repository => Service;
+
+    [Inject]
+    public NavigationManager? NavManager { get; set; }
+
+    [Parameter]
+    public long Id { get; set; } = 0;
+
+    public Product Product { get; set; } = new();
+
+    protected override void OnParametersSet() 
+    {
+        if (Id != 0) 
+        {
+            Product = Repository.Products.FirstOrDefault(p => p.ProductID == Id) ?? new();
+        }
+    }
+
+    public void SaveProduct() 
+    {
+        if (Id == 0) 
+        {
+            Repository.CreateProduct(Product);
+        } 
+        else 
+        {
+            Repository.SaveProduct(Product);
+        }
+
+        NavManager?.NavigateTo("/admin/products");
+    }
+
+    public string ThemeColor => Id == 0 ? "primary" : "warning";
+    public string TitleText => Id == 0 ? "Create" : "Edit";
+}
