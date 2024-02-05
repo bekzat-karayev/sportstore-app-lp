@@ -41,7 +41,7 @@ by the validation attributes.
     <div class="form-group">
         <label>Price</label>
         <ValidationMessage For="@(() => Product.Price)" />
-        <InputNumber class="form-control" @bind-value="Product.Price" />
+        <InputNumber TValue="decimal" class="form-control" @bind-value="Product.Price" />
     </div>
     <div class="m-2">
         <button type="submit" class="btn btn-@ThemeColor">Save</button>
