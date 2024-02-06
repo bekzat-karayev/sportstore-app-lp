@@ -26,22 +26,22 @@ by the validation attributes.
     <div class="form-group">
         <label>Name</label>
         <ValidationMessage For="@(() => Product.Name)" />
-        <InputText class="form-control" @bind-value="Product.Name" />
+        <InputText class="form-control" @bind-Value="Product.Name" />
     </div>
     <div class="form-group">
         <label>Description</label>
         <ValidationMessage For="@(() => Product.Description)" />
-        <InputText class="form-control" @bind-value="Product.Description" />
+        <InputText class="form-control" @bind-Value="Product.Description" />
     </div>
     <div class="form-group">
         <label>Category</label>
         <ValidationMessage For="@(() => Product.Category)" />
-        <InputText class="form-control" @bind-value="Product.Category" />
+        <InputText class="form-control" @bind-Value="Product.Category" />
     </div>
     <div class="form-group">
         <label>Price</label>
         <ValidationMessage For="@(() => Product.Price)" />
-        <InputNumber TValue="decimal" class="form-control" @bind-value="Product.Price" />
+        <InputNumber TValue="decimal" class="form-control" @bind-Value="Product.Price" />
     </div>
     <div class="m-2">
         <button type="submit" class="btn btn-@ThemeColor">Save</button>
