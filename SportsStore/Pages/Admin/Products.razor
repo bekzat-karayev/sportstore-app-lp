@@ -35,6 +35,12 @@ that will allow new Product objects to be created and stored in the database.
                         <NavLink class="btn btn-warning btn-sm" href="@GetEditUrl(product.ProductID ?? 9)">
                             Edit
                         </NavLink>
+                        <!-- The new button element is configured with the `onclick` attribute, which invokes the `DeleteProduct`
+                        method. The selected Product object is removed from the database, and the data displayed by the 
+                        component is updated. -->
+                        <button class="btn btn-danger btn-sm" @onclick="@(e => DeleteProduct(product))">
+                            Delete
+                        </button>
                     </td>
                 </tr>
             }
@@ -62,6 +68,12 @@ that will allow new Product objects to be created and stored in the database.
     public async Task UpdateData()
     {
         ProductData = await Repository.Products.ToListAsync();
+    }
+
+    public async Task DeleteProduct(Product product)
+    {
+        Repository.DeleteProduct(product);
+        await UpdateData();
     }
 
     public string GetDetailsUrl(long id) => $"/admin/products/details/{id}";
