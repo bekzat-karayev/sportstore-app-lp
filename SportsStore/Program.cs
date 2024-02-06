@@ -1,5 +1,6 @@
 /*  The Program.cs file is used to configure the ASP.NET Core application.
 */
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SportsStore.Models;
 
@@ -50,6 +51,12 @@ connection.
 */
 builder.Services.AddServerSideBlazor();
 
+/*  I extended the Entity Framework Core configuration to register the context class and used the `AddIdentity` method to 
+set up the Identity services using the built-in classes to represent users and roles. 
+*/
+builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:IdentityConnection"]));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>();
+
 var app = builder.Build();
 
 /*  ASP.NET Core receives HTTP requests and passes them along a request pipeline, which is populated
@@ -61,6 +68,12 @@ will be created later in the chapter
 */
 app.UseStaticFiles();
 app.UseSession();
+
+/*  I called the UseAuthentication and UseAuthorization methods to set up the middleware components that 
+implement the security policy.
+*/
+app.UseAuthorization();
+app.UseAuthorization();
 /*  I can create URLs that are more appealing to user by creating a scheme that follows the pattern of composable
 URLs (e.g, "http://localhost/Products/Page2" instead of default "http://localhost/?productPage=2"). The ASP.NET Core routing 
 feature makes it easy to change the URL scheme in an application.
