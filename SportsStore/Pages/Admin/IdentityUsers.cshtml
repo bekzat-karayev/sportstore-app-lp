@@ -31,11 +31,11 @@
             userManager = manager;
         }
 
-        public IdentityUser? AdminUser { get; set; } = new();
+        public IdentityUser AdminUser { get; set; } = new();
 
         public async Task OnGetAsync()
         {
-            AdminUser = await userManager.FindByNameAsync("Admin");
+            AdminUser = await userManager.FindByNameAsync("Admin") ?? new();
         }
     }
 }
