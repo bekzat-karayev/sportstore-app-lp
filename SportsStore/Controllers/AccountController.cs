@@ -11,7 +11,6 @@ providing a view model object that includes the URL to which the browser should 
 SignInManager<IdentityUser> services that have been received through the controller’s constructor to authenticate the user and log them into the system. 
     For now, it is enough to know that if there is an authentication failure, then I create a model validation error and render the default view; 
 however, if authentication is successful, then I redirect the user to the URL that they want to access before they are prompted for their credentials.
-
 */
 public class AccountControleer : Controller
 {
