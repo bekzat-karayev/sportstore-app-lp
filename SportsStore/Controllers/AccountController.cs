@@ -12,12 +12,12 @@ SignInManager<IdentityUser> services that have been received through the control
     For now, it is enough to know that if there is an authentication failure, then I create a model validation error and render the default view; 
 however, if authentication is successful, then I redirect the user to the URL that they want to access before they are prompted for their credentials.
 */
-public class AccountControleer : Controller
+public class AccountController : Controller
 {
     private UserManager<IdentityUser> userManager;
     private SignInManager<IdentityUser> signInManager;
 
-    public AccountControleer(UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signInMgr)
+    public AccountController(UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signInMgr)
     {
         userManager = userMgr;
         signInManager = signInMgr;
