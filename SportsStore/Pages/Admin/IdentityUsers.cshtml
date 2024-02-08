@@ -1,7 +1,13 @@
 @page
 @model IdentityUsersModel
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization
 
+@*  Now that I have configured ASP.NET Core Identity, I can apply an authorization policy to the parts of the application that I want to protect. 
+I am going to use the most basic authorization policy possible, which is to allow access to any authenticated user. Although this can be a useful policy 
+in real applications as well, there are also options for creating finer-grained authorization controls, but since the SportsStore application has only 
+one user, distinguishing between anonymous and authenticated requests is sufficient.
+*@
 <h3 class="bg-primary text-white text-center p-2">Admin User</h3>
 <table class="table table-sm table-striped table-bordered">
     <tbody>
@@ -22,6 +28,8 @@
 
 @functions {
 
+    // For controllers and Razor pages, the Authorize attribute is used to restrict access
+    [Authorize]
     public class IdentityUsersModel : PageModel 
     {
         private UserManager<IdentityUser> userManager;

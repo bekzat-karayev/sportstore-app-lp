@@ -1,9 +1,13 @@
 @*  Blazor relies on a Razor Page to provide the initial content to the browser, which includes the JavaScript code
 that connects to the server and renders the Blazor HTML content. Therefore, Index.cshtml is created.
 *@
-
+@*  When there are only authorized and unauthorized users, the Authorize attribute can be applied to the Razor Page that acts as the entry point 
+for the Blazor part of the application
+*@
 @page "/admin"
 @{ Layout = null; }
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 
 <!DOCTYPE html>
 <html>
