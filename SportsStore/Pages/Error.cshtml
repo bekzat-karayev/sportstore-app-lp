@@ -1,0 +1,21 @@
+@*  At the moment, the application is configured to use the developer-friendly error pages, which provide helpful information when a problem occurs. 
+This is not information that end users should see, so I added this Razor page.
+    This kind of error page is the last resort, and it is best to keep it as simple as possible and not to rely on shared views, view components, 
+or other rich features. In this case, I have disabled shared layouts and defined a simple HTML document that explains that there has been an error, 
+without providing any information about what has happened.
+*@
+@page "/error"
+@{ Layout = null; }
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Error</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+    <body class="text-center">
+        <h2 class="text-danger">Error</h2>
+        <h3 class="text-danger">An error occured while processing your request</h3>
+    </body>
+</html>

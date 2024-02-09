@@ -59,6 +59,15 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkSto
 
 var app = builder.Build();
 
+/*  I have reconfigured the application so that the Error page is used for unhandled exceptions when the application is in the production environment. 
+I have also set the local, which is required when deploying to a Docker container.
+*/
+if (app.Environment.IsProduction()) {
+    app.UseExceptionHandler("/error");
+}
+
+app.UseRequestLocalization(options => {options.AddSupportedCultures("en-US").AddSupportedCultures("en-US").SetDefaultCulture("en-US");});
+
 /*  ASP.NET Core receives HTTP requests and passes them along a request pipeline, which is populated
 with middleware components registered using the app property. Each middleware component is able to
 inspect requests, modify them, generate a response, or modify the responses that other components have
