@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 
-COPY bin/Release/net7.0/publish/ SportsStore/
+COPY /bin/Release/net7.0/publish/ SportsStore/
 
 ENV ASPNETCORE_ENVIRONMENT Production
 ENV Logging_Console_FormatterName=Simple
